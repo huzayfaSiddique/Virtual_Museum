@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Virtual Museum — Responsive stylesheet
+   Media queries for tablet (<=768px) and mobile (<=480px) per plan §3 / §4.3.
+   Loaded after style.css on every page.
+   Feature 1 — Responsive Navigation: below 768px the nav <ul> becomes an
+   off-canvas panel and the hamburger (.nav-toggle) is revealed.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Tablet & below — 768px
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+  /* Reveal the hamburger control and pin it to the right edge.
+     .site-nav is only a wrapper here (its <ul> is out of flow), so drop its
+     desktop auto-margin to stop the two auto-margins splitting the free space. */
+  .nav-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .site-nav {
+    margin-left: 0;
+  }
+
+  /* Collapse the horizontal nav list into an off-canvas panel that slides
+     in from the right. The .open class is toggled by js/nav.js. */
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 95;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-md);
+    width: min(78vw, 20rem);
+    height: 100vh;
+    height: 100dvh;
+    padding: calc(var(--header-height) + var(--space-lg)) var(--space-lg)
+      var(--space-lg);
+    background-color: var(--color-maroon-deep);
+    box-shadow: -8px 0 28px rgba(0, 0, 0, 0.35);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform var(--transition);
+  }
+
+  .nav-menu.open {
+    transform: translateX(0);
+  }
+
+  .nav-menu a {
+    display: block;
+    font-size: var(--fs-h3);
+    padding-block: var(--space-sm);
+  }
+
+  /* The underline effect reads poorly on the tall stacked links */
+  .nav-menu a::after {
+    display: none;
+  }
+
+  .nav-menu a.is-active {
+    color: var(--color-gold);
+  }
+
+  /* Footer stacks its columns and tightens the gap */
+  .footer-inner {
+    gap: var(--space-lg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile — 480px
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+
+  /* Step the display type down so headings do not overflow */
+  :root {
+    --fs-hero: 2.5rem;
+    --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
+    --fs-h3: 1.125rem;
+  }
+
+  .section {
+    padding-block: var(--space-lg);
+  }
+
+  .page-intro {
+    padding-block: var(--space-lg) var(--space-md);
+  }
+
+  /* Give the off-canvas panel more of the small screen */
+  .nav-menu {
+    width: 88vw;
+  }
+
+  .footer-brand {
+    flex-basis: 100%;
+  }
+}
