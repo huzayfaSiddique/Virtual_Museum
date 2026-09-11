@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Museum — Gallery</title>
+  <meta
+    name="description"
+    content="Browse the full artwork catalogue with search, filters, and favorites."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <!-- Shared header / navigation (Feature 1). Reused verbatim on every page. -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Virtual<span>Museum</span></a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul class="nav-menu" id="primary-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="gallery.html" class="is-active" aria-current="page">Gallery</a></li>
+          <li><a href="visit.html">Visit</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-overlay" aria-hidden="true"></div>
+
+  <main>
+    <section class="page-intro">
+      <div class="container">
+        <h1>Gallery</h1>
+        <p class="lead">
+          Browse the full catalogue and search by title or artist — every work here
+          can be saved to your own collection.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>The full catalogue</h2>
+        <p>
+          Painting and sculpture from the Renaissance to the Modern era, all drawn
+          from public-domain archives and presented with their original titles,
+          dates, and media.
+        </p>
+        <div class="button-row">
+          <a class="btn btn--secondary" href="exhibitions.html">Start with a collection</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared footer. Reused verbatim on every page. -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">Virtual<span>Museum</span></a>
+        <p>
+          A digital home for world art, gathered together for study and slow looking.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer">
+        <h2 class="footer-title">Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="visit.html">Visit</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-visit">
+        <h2 class="footer-title">Visit</h2>
+        <address>
+          12 Gallery Row, Lahore<br />
+          Tuesday–Sunday, 10am–6pm
+        </address>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2026 Virtual Museum · Web Technologies coursework.</p>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+</body>
+</html>

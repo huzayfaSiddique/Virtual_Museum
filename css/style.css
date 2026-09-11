@@ -1,0 +1,426 @@
+/* ==========================================================================
+   Virtual Museum — Global Stylesheet
+   Design system + shared components (header/nav, footer, typography, buttons).
+   Built once and reused on every page (plan §4.7).
+   Feature 1 — Responsive Navigation lives in the "Header / Navigation" block.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design tokens  (plan §4.1–4.3 — defined once, reused everywhere)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Colour palette */
+  --color-maroon: #4a1620;        /* primary brand — header/footer, key headings */
+  --color-maroon-deep: #2f0e15;   /* hover/active states, deepest shadows */
+  --color-gold: #b8923f;          /* accent only — buttons, active links, dividers */
+  --color-cream: #f3ede1;         /* page background */
+  --color-ivory: #fbf8f2;         /* card/panel background */
+  --color-ink: #241d1a;           /* body text */
+  --color-ink-soft: #5c5147;      /* secondary/meta text */
+
+  /* Type scale — 14 / 16 / 20 / 28 / 40 / 64 */
+  --fs-sm: 0.875rem;   /* 14px */
+  --fs-body: 1rem;     /* 16px */
+  --fs-h3: 1.25rem;    /* 20px */
+  --fs-h2: 1.75rem;    /* 28px */
+  --fs-h1: 2.5rem;     /* 40px */
+  --fs-hero: 4rem;     /* 64px */
+
+  /* Spacing scale */
+  --space-xs: 0.25rem; /* 4px  */
+  --space-sm: 0.5rem;  /* 8px  */
+  --space-md: 1rem;    /* 16px */
+  --space-lg: 2rem;    /* 32px */
+  --space-xl: 4rem;    /* 64px */
+
+  /* Typefaces */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Work Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+
+  /* Shared measures */
+  --header-height: 4.5rem;
+  --transition: 220ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--color-ink);
+  background-color: var(--color-cream);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+address {
+  font-style: normal;
+}
+
+/* Visible keyboard focus on every interactive element (plan §4.8) */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography helpers
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3 {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-maroon);
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+p {
+  margin: 0 0 var(--space-md);
+  max-width: 72ch;
+}
+
+.lead {
+  font-size: var(--fs-h3);
+  color: var(--color-ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout helpers
+   -------------------------------------------------------------------------- */
+.container {
+  width: min(1120px, 92%);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--space-xl);
+}
+
+/* --------------------------------------------------------------------------
+   5. Header / Navigation  —  FEATURE 1 (Responsive Navigation)
+   Desktop layout below; the collapse-to-hamburger behaviour under 768px
+   lives in css/responsive.css.
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-maroon);
+  color: var(--color-cream);
+  border-bottom: 1px solid rgba(184, 146, 63, 0.35);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  min-height: var(--header-height);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--color-ivory);
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--color-gold);
+}
+
+.site-nav {
+  margin-left: auto;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.nav-menu a {
+  position: relative;
+  display: inline-block;
+  padding-block: var(--space-sm);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+}
+
+/* Gold underline on hover / for the current page */
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-gold);
+  transition: width var(--transition);
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.is-active::after {
+  width: 100%;
+}
+
+.nav-menu a.is-active {
+  color: var(--color-gold);
+}
+
+/* Hamburger button — hidden on desktop, revealed under 768px (responsive.css) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background-color: transparent;
+  border: 1px solid rgba(184, 146, 63, 0.5);
+  border-radius: 2px;
+  color: var(--color-ivory);
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: currentColor;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Morph the hamburger into a close (x) when the menu is open */
+.nav-toggle.open .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.open .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Dim overlay behind the off-canvas menu (mobile only) */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background-color: rgba(47, 14, 21, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.nav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Lock background scroll while the mobile menu is open */
+body.nav-open {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   6. Buttons (plan §4.6 — exactly two variants site-wide)
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.btn--primary {
+  background-color: var(--color-gold);
+  color: var(--color-maroon-deep);
+}
+
+.btn--primary:hover {
+  background-color: #a37e2f;
+}
+
+.btn--secondary {
+  background-color: transparent;
+  border-color: var(--color-maroon);
+  color: var(--color-maroon);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-maroon);
+  color: var(--color-ivory);
+}
+
+/* Horizontal group of buttons (Flexbox row) */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* --------------------------------------------------------------------------
+   7. Page intro (shared heading banner used by every page shell)
+   -------------------------------------------------------------------------- */
+.page-intro {
+  padding-block: var(--space-xl) var(--space-lg);
+  background-color: var(--color-ivory);
+  border-bottom: 1px solid rgba(74, 22, 32, 0.12);
+}
+
+.page-intro .lead {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. Footer (shared on every page)
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--color-maroon-deep);
+  color: var(--color-cream);
+  padding-block: var(--space-xl) var(--space-lg);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-xl);
+}
+
+.footer-brand {
+  flex: 1 1 260px;
+  max-width: 360px;
+}
+
+.footer-brand .logo {
+  display: inline-block;
+  margin-bottom: var(--space-md);
+}
+
+.footer-brand p {
+  font-size: var(--fs-sm);
+  color: rgba(243, 237, 225, 0.8);
+}
+
+.footer-nav,
+.footer-visit {
+  flex: 0 1 auto;
+}
+
+.footer-title {
+  margin-bottom: var(--space-md);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-gold);
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer-nav a,
+.footer-visit a {
+  font-size: var(--fs-sm);
+  color: rgba(243, 237, 225, 0.85);
+}
+
+.footer-nav a:hover,
+.footer-visit a:hover {
+  color: var(--color-gold);
+}
+
+.footer-visit address {
+  font-size: var(--fs-sm);
+  color: rgba(243, 237, 225, 0.85);
+}
+
+.footer-bottom {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgba(184, 146, 63, 0.35);
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: rgba(243, 237, 225, 0.65);
+}
+
+/* --------------------------------------------------------------------------
+   9. Motion preferences (plan §4.5)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
