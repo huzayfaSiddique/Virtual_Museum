@@ -74,6 +74,12 @@
   .tour-artwork {
     grid-template-columns: 1fr;
   }
+
+  /* Gallery: tighten to two columns on tablets */
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -104,5 +110,10 @@
 
   .footer-brand {
     flex-basis: 100%;
+  }
+
+  /* Gallery: single column on the narrowest screens */
+  .gallery-grid {
+    grid-template-columns: 1fr;
   }
 }
