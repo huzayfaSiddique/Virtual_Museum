@@ -137,6 +137,11 @@ p {
   padding-block: var(--space-xl);
 }
 
+/* Utility: hide an element from JS by class (e.g. the tour's start button) */
+.is-hidden {
+  display: none;
+}
+
 /* --------------------------------------------------------------------------
    5. Header / Navigation  —  FEATURE 1 (Responsive Navigation)
    Desktop layout below; the collapse-to-hamburger behaviour under 768px
@@ -308,6 +313,13 @@ body.nav-open {
   color: var(--color-ivory);
 }
 
+/* Disabled state (e.g. "Previous" on the first step of the tour) */
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Horizontal group of buttons (Flexbox row) */
 .button-row {
   display: flex;
@@ -408,7 +420,63 @@ body.nav-open {
 }
 
 /* --------------------------------------------------------------------------
-   9. Motion preferences (plan §4.5)
+   9. Curator's random tour  —  FEATURE 2
+   -------------------------------------------------------------------------- */
+.tour-panel {
+  display: none;
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  background-color: var(--color-ivory);
+  border: 1px solid rgba(74, 22, 32, 0.14);
+  border-left: 4px solid var(--color-gold);
+}
+
+/* Revealed by js/tour.js toggling .open on the panel */
+.tour-panel.open {
+  display: block;
+}
+
+.tour-counter {
+  margin-bottom: var(--space-md);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-maroon);
+}
+
+.tour-artwork {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.tour-image {
+  width: 100%;
+  max-height: 30rem;
+  object-fit: contain;
+  background-color: var(--color-cream);
+}
+
+.tour-title {
+  margin-bottom: var(--space-xs);
+}
+
+.tour-meta {
+  margin-bottom: var(--space-md);
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.tour-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   10. Motion preferences (plan §4.5)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
