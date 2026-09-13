@@ -84,17 +84,50 @@
     grid.dispatchEvent(new CustomEvent("gallery-rendered"));
   }
 
-  // Combine the current search term AND the selected era, then re-render.
+  // Read saved artwork IDs from localStorage.
+  function getSavedIds() {
+    try {
+      var raw = localStorage.getItem("vm_favorites");
+      var list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  // Combine the current search term AND the selected era / saved state, then re-render.
   function applyFilters() {
     var term = currentSearch.trim().toLowerCase();
+    var savedIds = getSavedIds();
+
     var list = artworks.filter(function (art) {
       var matchesSearch =
         !term ||
         art.title.toLowerCase().includes(term) ||
         art.artist.toLowerCase().includes(term);
-      var matchesEra = currentEra === "all" || art.era === currentEra;
-      return matchesSearch && matchesEra;
+
+      var matchesCategory = false;
+      if (currentEra === "all") {
+        matchesCategory = true;
+      } else if (currentEra === "saved") {
+        matchesCategory = savedIds.indexOf(art.id) !== -1;
+      } else {
+        matchesCategory = art.era === currentEra;
+      }
+
+      return matchesSearch && matchesCategory;
     });
+
+    if (currentEra === "saved" && !list.length && !term) {
+      var grid = document.getElementById("gallery-grid");
+      if (grid) {
+        grid.innerHTML =
+          '<p class="no-results">You have no saved artworks yet. Browse the catalogue and click the \u2661 icon on any artwork to save it here.</p>';
+        grid.dispatchEvent(new CustomEvent("gallery-rendered"));
+        return;
+      }
+    }
+
     renderGallery(list);
   }
 
@@ -187,13 +220,41 @@
     }
   }
 
+  // Switch the active chip UI and filter to "saved" mode.
+  function activateSavedFilter(shouldScroll) {
+    currentEra = "saved";
+    var chips = document.getElementById("filter-chips");
+    if (chips) {
+      var all = chips.querySelectorAll(".chip");
+      for (var i = 0; i < all.length; i++) {
+        if (all[i].getAttribute("data-era") === "saved") {
+          all[i].classList.add("is-active");
+        } else {
+          all[i].classList.remove("is-active");
+        }
+      }
+    }
+    applyFilters();
+
+    if (shouldScroll) {
+      var gallerySection = document.getElementById("gallery");
+      if (gallerySection) {
+        gallerySection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
+
   function init() {
     if (typeof artworks === "undefined" || !Array.isArray(artworks)) {
       return;
     }
 
-    // Draw the full catalogue first.
-    renderGallery(artworks);
+    // Check if the page loaded with the #saved hash.
+    if (window.location.hash === "#saved") {
+      activateSavedFilter(false);
+    } else {
+      // Draw the full catalogue first.
+      renderGallery(artworks);
 
     // --- Grid click → open the lightbox (FEATURE 5) -------------------------
     var grid = document.getElementById("gallery-grid");
@@ -239,6 +300,33 @@
 
       document.addEventListener("keydown", handleLightboxKey);
     }
+    }
+
+    // Listen for hash changes (e.g. back/forward navigation or link clicks)
+    window.addEventListener("hashchange", function () {
+      if (window.location.hash === "#saved") {
+        activateSavedFilter(true);
+      }
+    });
+
+    // Header "Saved" button: if clicked on the gallery page, switch filter directly.
+    var navFav = document.querySelector(".nav-fav");
+    if (navFav) {
+      navFav.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (window.location.hash !== "#saved") {
+          history.pushState(null, "", "#saved");
+        }
+        activateSavedFilter(true);
+      });
+    }
+
+    // Re-filter when favorites are updated (e.g. if user unsaves a card while in saved mode)
+    window.addEventListener("favorites-updated", function () {
+      if (currentEra === "saved") {
+        applyFilters();
+      }
+    });
 
     // --- FEATURE 4a: live text search (lightly debounced) ---
     var searchInput = document.getElementById("filter-search");
@@ -265,6 +353,15 @@
         }
 
         currentEra = chip.getAttribute("data-era") || "all";
+
+        // Update URL hash state when user selects a chip
+        if (currentEra === "saved") {
+          if (window.location.hash !== "#saved") {
+            history.pushState(null, "", "#saved");
+          }
+        } else if (window.location.hash === "#saved") {
+          history.pushState(null, "", window.location.pathname);
+        }
 
         // Move the .is-active state to the clicked chip.
         var all = chips.querySelectorAll(".chip");

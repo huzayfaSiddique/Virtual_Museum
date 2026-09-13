@@ -47,15 +47,21 @@
     } catch (e) {
       /* storage unavailable — keep changes in memory only for this session */
     }
+    window.dispatchEvent(new CustomEvent("favorites-updated", { detail: { favorites: list } }));
   }
 
   // --- UI updates -----------------------------------------------------------
 
-  // Update every header's "Saved (n)" pill from the stored count.
+  // Update every header's "Saved (n)" pill and gallery chip from the stored count.
   function updateCounter() {
+    var count = getFavorites().length;
     var el = document.getElementById("fav-count");
     if (el) {
-      el.textContent = String(getFavorites().length);
+      el.textContent = String(count);
+    }
+    var chipCount = document.getElementById("chip-saved-count");
+    if (chipCount) {
+      chipCount.textContent = String(count);
     }
   }
 
