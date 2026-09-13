@@ -244,14 +244,65 @@
     }
   }
 
+  // Switch the active chip UI and filter to a specific era (e.g. from Exhibitions page links).
+  function activateEraFilter(eraName, shouldScroll) {
+    if (!eraName) return;
+    var validEras = ["all", "Renaissance", "Impressionism", "Modern", "Sculpture", "saved"];
+    var matchedEra = "all";
+    for (var i = 0; i < validEras.length; i++) {
+      if (validEras[i].toLowerCase() === eraName.toLowerCase()) {
+        matchedEra = validEras[i];
+        break;
+      }
+    }
+
+    if (matchedEra === "saved") {
+      activateSavedFilter(shouldScroll);
+      return;
+    }
+
+    currentEra = matchedEra;
+    var chips = document.getElementById("filter-chips");
+    if (chips) {
+      var all = chips.querySelectorAll(".chip");
+      for (var j = 0; j < all.length; j++) {
+        if (all[j].getAttribute("data-era") === matchedEra) {
+          all[j].classList.add("is-active");
+        } else {
+          all[j].classList.remove("is-active");
+        }
+      }
+    }
+    applyFilters();
+
+    if (shouldScroll) {
+      var gallerySection = document.getElementById("gallery");
+      if (gallerySection) {
+        gallerySection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
+
   function init() {
     if (typeof artworks === "undefined" || !Array.isArray(artworks)) {
       return;
     }
 
-    // Check if the page loaded with the #saved hash.
-    if (window.location.hash === "#saved") {
+    // Check if the page loaded with an era parameter (?era=...) or hash (#...)
+    var urlParams = new URLSearchParams(window.location.search);
+    var eraParam = urlParams.get("era");
+    if (eraParam) {
+      activateEraFilter(eraParam, true);
+    } else if (window.location.hash === "#saved") {
       activateSavedFilter(false);
+    } else if (window.location.hash) {
+      var hashEra = window.location.hash.replace("#", "");
+      var recognized = ["renaissance", "impressionism", "modern", "sculpture"];
+      if (recognized.indexOf(hashEra.toLowerCase()) !== -1) {
+        activateEraFilter(hashEra, true);
+      } else {
+        renderGallery(artworks);
+      }
     } else {
       // Draw the full catalogue first.
       renderGallery(artworks);

@@ -70,6 +70,43 @@
     gap: var(--space-lg);
   }
 
+  /* Home Hero: single column stack on tablet */
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  /* About mission pull-quote: comfortable padding on tablet */
+  .mission-pullquote {
+    padding-left: var(--space-md);
+  }
+
+  /* Exhibitions collection cards: adjusted gap on tablet */
+  .exhibitions-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  /* Contact form rules — tablet pass (plan §6) */
+  .contact-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .form-field {
+    margin-bottom: var(--space-md);
+  }
+
+  .form-field input,
+  .form-field textarea {
+    font-size: 1rem; /* prevents iOS Safari auto-zoom on focus */
+    padding: 0.75rem var(--space-md);
+  }
+
   /* Curator's tour: image stacks above the caption instead of beside it */
   .tour-artwork {
     grid-template-columns: 1fr;
@@ -110,6 +147,66 @@
 
   .page-intro {
     padding-block: var(--space-lg) var(--space-md);
+  }
+
+  /* Home Hero: compact mobile treatment */
+  .hero--home {
+    padding-block: var(--space-lg);
+  }
+
+  .hero-actions {
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* About mission pull-quote on mobile */
+  .mission-text {
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  /* Exhibitions: single column card flow */
+  .exhibitions-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  /* Visit status line on mobile */
+  .visit-status-badge {
+    width: 100%;
+    font-size: 0.8125rem;
+    padding: 0.35rem 0.65rem;
+  }
+
+  /* Visiting hours table compact cell padding */
+  .hours-table th,
+  .hours-table td {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.8125rem;
+  }
+
+  /* Contact Form — Mobile pass (build order §6) */
+  .contact-form .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px; /* accessible touch target */
+  }
+
+  .form-field input {
+    min-height: 44px;
+  }
+
+  .form-success {
+    padding: var(--space-md);
+    font-size: var(--fs-sm);
+  }
+
+  .error-msg {
+    font-size: 0.8125rem;
   }
 
   /* Give the off-canvas panel more of the small screen */

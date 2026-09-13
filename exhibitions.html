@@ -66,16 +66,129 @@
       </div>
     </section>
 
-    <section class="section">
+    <!-- Deliberate moment §4.4: Exhibitions collection cards with per-era accent colors -->
+    <section class="section section--collections" id="collections">
       <div class="container">
-        <h2>Our collections</h2>
-        <p>
-          Renaissance looks at proportion and devotion; Impressionism follows light
-          onto the open air; Modern breaks the frame; and Sculpture returns the work
-          to three dimensions.
-        </p>
-        <div class="button-row">
-          <a class="btn btn--primary" href="gallery.html">See the artworks</a>
+        <div class="section-header">
+          <h2>Our collections</h2>
+          <p class="section-subhead">
+            Explore our four core curatorial wings. Each represents a pivotal era in
+            artistic inquiry, preserved and documented with high-resolution imagery.
+          </p>
+        </div>
+
+        <div class="exhibitions-grid">
+          <!-- Card 1: Renaissance (Deep Maroon) -->
+          <article class="exhibition-card exhibition-card--renaissance">
+            <div class="exhibition-card-media">
+              <img
+                src="images/artworks/renaissance-fra-angelico-saint-anthony-abbot.jpg"
+                alt="Saint Anthony Abbot by Fra Angelico"
+                loading="lazy"
+              />
+              <span class="exhibition-card-badge">1440–1505</span>
+            </div>
+            <div class="exhibition-card-body">
+              <span class="exhibition-card-era">Renaissance Wing</span>
+              <h3 class="exhibition-card-title">Proportion &amp; Devotion</h3>
+              <p class="exhibition-card-desc">
+                Tempera on poplar and gold ground panels celebrating human anatomy,
+                spiritual devotion, and early linear perspective in Italy and Flanders.
+              </p>
+              <p class="exhibition-card-meta">
+                <strong>Featured:</strong> Fra Angelico, van der Weyden, Memling, Ghirlandaio, Perugino
+              </p>
+              <div class="exhibition-card-action">
+                <a class="btn btn--collection" href="gallery.html?era=Renaissance">
+                  Explore Renaissance (5 works)
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Impressionism (Soft Blue) -->
+          <article class="exhibition-card exhibition-card--impressionism">
+            <div class="exhibition-card-media">
+              <img
+                src="images/artworks/impressionism-monet-water-lilies.jpg"
+                alt="Water Lilies by Claude Monet"
+                loading="lazy"
+              />
+              <span class="exhibition-card-badge">1871–1906</span>
+            </div>
+            <div class="exhibition-card-body">
+              <span class="exhibition-card-era">Impressionism Wing</span>
+              <h3 class="exhibition-card-title">Light &amp; Atmosphere</h3>
+              <p class="exhibition-card-desc">
+                Dissolving form into radiant colour. French open-air landscape studies,
+                rainy Parisian boulevards, and pointillist optics by the water.
+              </p>
+              <p class="exhibition-card-meta">
+                <strong>Featured:</strong> Monet, Seurat, Caillebotte, Pissarro, van Gogh
+              </p>
+              <div class="exhibition-card-action">
+                <a class="btn btn--collection" href="gallery.html?era=Impressionism">
+                  Explore Impressionism (5 works)
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Modern (Mustard / Ochre) -->
+          <article class="exhibition-card exhibition-card--modern">
+            <div class="exhibition-card-media">
+              <img
+                src="images/artworks/modern-matisse-woman-before-an-aquarium.jpg"
+                alt="Woman before an Aquarium by Henri Matisse"
+                loading="lazy"
+              />
+              <span class="exhibition-card-badge">1893–1925</span>
+            </div>
+            <div class="exhibition-card-body">
+              <span class="exhibition-card-era">Modern Wing</span>
+              <h3 class="exhibition-card-title">Form &amp; Fracture</h3>
+              <p class="exhibition-card-desc">
+                Breaking the traditional picture plane through Fauvist color fields,
+                expressive Northern European portraiture, and pure neoplastic geometry.
+              </p>
+              <p class="exhibition-card-meta">
+                <strong>Featured:</strong> Matisse, Kandinsky, Mondrian, Munch, Modigliani
+              </p>
+              <div class="exhibition-card-action">
+                <a class="btn btn--collection" href="gallery.html?era=Modern">
+                  Explore Modern (5 works)
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Sculpture (Stone Grey) -->
+          <article class="exhibition-card exhibition-card--sculpture">
+            <div class="exhibition-card-media">
+              <img
+                src="images/artworks/sculpture-canova-bust-of-paris.jpg"
+                alt="Bust of Paris by Antonio Canova"
+                loading="lazy"
+              />
+              <span class="exhibition-card-badge">1778–1920</span>
+            </div>
+            <div class="exhibition-card-body">
+              <span class="exhibition-card-era">Sculpture Wing</span>
+              <h3 class="exhibition-card-title">Volume &amp; Materiality</h3>
+              <p class="exhibition-card-desc">
+                Returning art to three physical dimensions: neoclassical Carrara marble,
+                dramatic bronze combat studies, and monumental civic commemoration.
+              </p>
+              <p class="exhibition-card-meta">
+                <strong>Featured:</strong> Canova, Barye, Houdon, French, Saint-Gaudens
+              </p>
+              <div class="exhibition-card-action">
+                <a class="btn btn--collection" href="gallery.html?era=Sculpture">
+                  Explore Sculpture (5 works)
+                </a>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>

@@ -138,9 +138,40 @@
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initForm);
-  } else {
+  // Deliberate moment §4.4: Live visitor status line updater
+  function initVisitStatus() {
+    var statusEl = document.getElementById("visit-status");
+    if (!statusEl) return;
+
+    var now = new Date();
+    var day = now.getDay(); // 0 = Sun, 1 = Mon, ..., 5 = Fri, 6 = Sat
+
+    var dot = statusEl.querySelector(".status-dot");
+    var title = statusEl.querySelector(".status-title");
+    var time = statusEl.querySelector(".status-time");
+
+    if (day === 1) {
+      // Monday is closed
+      if (dot) {
+        dot.classList.remove("status-dot--open");
+        dot.classList.add("status-dot--closed");
+      }
+      if (title) title.textContent = "Closed today";
+      if (time) time.textContent = "Opens Tuesday 10am";
+    } else if (day === 5) {
+      // Friday late hours
+      if (time) time.textContent = "10am–8pm (Late hours)";
+    }
+  }
+
+  function init() {
     initForm();
+    initVisitStatus();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();

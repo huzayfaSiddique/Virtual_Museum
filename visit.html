@@ -56,9 +56,17 @@
   <div class="nav-overlay" aria-hidden="true"></div>
 
   <main>
+    <!-- Deliberate moment §4.4: Visit 'Open today · 10am–6pm' status line pinned near header -->
     <section class="page-intro">
       <div class="container">
-        <h1>Visit</h1>
+        <div class="visit-status-badge" id="visit-status" role="status" aria-live="polite">
+          <span class="status-dot status-dot--open" aria-hidden="true"></span>
+          <span class="status-title">Open today</span>
+          <span class="status-sep" aria-hidden="true">·</span>
+          <span class="status-time">10am–6pm</span>
+          <span class="status-detail">(Free admission · Last entry 5:30pm)</span>
+        </div>
+        <h1>Visit the museum</h1>
         <p class="lead">
           Everything you need to plan a trip — opening hours, where to find us, and
           how to get in touch.
@@ -70,11 +78,55 @@
       <div class="container">
         <h2>Opening hours</h2>
         <p>
-          Galleries are open Tuesday to Sunday and closed on Mondays. Admission is
-          free for everyone; last entry is thirty minutes before closing.
+          Galleries are open Tuesday to Sunday and closed on Mondays for collections
+          conservation. Admission to all permanent wings and special exhibitions is
+          always free.
         </p>
+        
+        <!-- Semantic visiting hours table (assignment §2) -->
+        <div class="table-responsive">
+          <table class="hours-table">
+            <caption class="sr-only">Museum Weekly Visiting Hours and Program Schedule</caption>
+            <thead>
+              <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Galleries</th>
+                <th scope="col">Admission</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Tuesday – Thursday</th>
+                <td>10:00am – 6:00pm</td>
+                <td><span class="badge-free">Free</span></td>
+                <td>Last entry 5:30pm</td>
+              </tr>
+              <tr class="hours-highlight">
+                <th scope="row">Friday</th>
+                <td>10:00am – 8:00pm</td>
+                <td><span class="badge-free">Free</span></td>
+                <td>Late evening gallery talks (6:30pm)</td>
+              </tr>
+              <tr>
+                <th scope="row">Saturday – Sunday</th>
+                <td>10:00am – 6:00pm</td>
+                <td><span class="badge-free">Free</span></td>
+                <td>Curator-led highlight tour (2:00pm)</td>
+              </tr>
+              <tr class="hours-closed">
+                <th scope="row">Monday</th>
+                <td>Closed</td>
+                <td>—</td>
+                <td>Conservation, study &amp; archives</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <div class="button-row">
           <a class="btn btn--primary" href="gallery.html">Browse the gallery</a>
+          <a class="btn btn--secondary" href="#contact-form">Send an inquiry</a>
         </div>
       </div>
     </section>
