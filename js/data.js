@@ -18,44 +18,44 @@ const artworks = [
     desc: "A small devotional panel showing the desert saint with his staff and bell, painted for a predella and set against a plain gold ground."
   },
   {
-    id: "memling-virgin-and-child",
-    title: "Virgin and Child",
+    id: "van-der-weyden-portrait-of-jean-gros",
+    title: "Portrait of Jean Gros",
+    artist: "Rogier van der Weyden",
+    year: "1460–64",
+    era: "Renaissance",
+    medium: "Oil on panel",
+    image: "images/artworks/renaissance-van-der-weyden-portrait-of-jean-gros.jpg",
+    desc: "A half-length portrait of a Burgundian court official, his hands joined in prayer and his gaze calm and level. It is one of van der Weyden's most searching late likenesses."
+  },
+  {
+    id: "memling-portrait-of-a-donor",
+    title: "Portrait of a Donor",
     artist: "Hans Memling",
     year: "c. 1485",
     era: "Renaissance",
     medium: "Oil on panel",
-    image: "images/artworks/renaissance-memling-virgin-and-child.jpg",
-    desc: "An intensely polished Netherlandish panel: the Virgin sits in a dark interior so that her flesh tones and the brocade carry all the light."
+    image: "images/artworks/renaissance-memling-portrait-of-a-donor.jpg",
+    desc: "A donor shown kneeling at prayer before an open book, framed by a painted window and a vase of carnations. The facing panel would once have carried the Virgin."
   },
   {
-    id: "botticelli-virgin-and-child-with-an-angel",
-    title: "Virgin and Child with an Angel",
-    artist: "Sandro Botticelli",
-    year: "1475–85",
+    id: "ghirlandaio-portrait-of-a-gentleman",
+    title: "Portrait of a Gentleman",
+    artist: "Ridolfo Ghirlandaio",
+    year: "c. 1505",
     era: "Renaissance",
-    medium: "Tempera on panel",
-    image: "images/artworks/renaissance-botticelli-virgin-and-child-with-an-angel.jpg",
-    desc: "An early Botticelli in which the Virgin's downward gaze and the angel's direct look set up a quiet exchange between the earthly and the divine."
+    medium: "Oil with tempera on panel, transferred to canvas",
+    image: "images/artworks/renaissance-ghirlandaio-portrait-of-a-gentleman.jpg",
+    desc: "A Florentine sitter in a black cap and fur-trimmed cloak, posed behind a parapet so that a small landscape is let into the picture at the left."
   },
   {
-    id: "cranach-eve",
-    title: "Eve",
-    artist: "Lucas Cranach the Elder",
-    year: "1533–37",
+    id: "perugino-christ-and-the-woman-of-samaria",
+    title: "Christ and the Woman of Samaria",
+    artist: "Perugino",
+    year: "1500–05",
     era: "Renaissance",
-    medium: "Oil on panel",
-    image: "images/artworks/renaissance-cranach-eve.jpg",
-    desc: "One half of a paired Adam and Eve, painted with the smooth pale flesh and exact foliage that Cranach's workshop supplied to German humanist patrons."
-  },
-  {
-    id: "el-greco-assumption-of-the-virgin",
-    title: "The Assumption of the Virgin",
-    artist: "Domenico Theotokópoulos, called El Greco",
-    year: "1577–79",
-    era: "Renaissance",
-    medium: "Oil on canvas",
-    image: "images/artworks/renaissance-el-greco-assumption-of-the-virgin.jpg",
-    desc: "The first major commission El Greco completed in Toledo, with the Virgin rising in a flame-like spiral above a crowd of apostles."
+    medium: "Tempera on panel, transferred to canvas",
+    image: "images/artworks/renaissance-perugino-christ-and-the-woman-of-samaria.jpg",
+    desc: "Christ and the Samaritan woman meet across a stone well while other figures carry water through a calm, deep Umbrian landscape behind them."
   },
   {
     id: "caillebotte-paris-street-rainy-day",
@@ -78,14 +78,14 @@ const artworks = [
     desc: "One of some 250 canvases Monet made of his pond at Giverny, dissolving the horizon so that water, sky and reflection share a single surface."
   },
   {
-    id: "cassatt-the-childs-bath",
-    title: "The Child's Bath",
-    artist: "Mary Cassatt",
-    year: "1893",
+    id: "pissarro-the-crystal-palace",
+    title: "The Crystal Palace",
+    artist: "Camille Pissarro",
+    year: "1871",
     era: "Impressionism",
     medium: "Oil on canvas",
-    image: "images/artworks/impressionism-cassatt-the-childs-bath.jpg",
-    desc: "An intimate overhead view of a woman bathing a child — a modern domestic subject that Cassatt flattened into the decorative pattern of Japanese prints."
+    image: "images/artworks/impressionism-pissarro-the-crystal-palace.jpg",
+    desc: "Painted from a window in Sydenham, with the great glass halls of the Crystal Palace set far off behind a wide, wind-brushed sky."
   },
   {
     id: "seurat-la-grande-jatte",
@@ -158,24 +158,24 @@ const artworks = [
     desc: "A late-night interior painted from memory, with the figure turned away from us while the window light picks out the room."
   },
   {
-    id: "rodin-the-walking-man",
-    title: "The Walking Man",
-    artist: "Auguste Rodin",
-    year: "Modeled 1877–1900, cast before 1917",
+    id: "french-abraham-lincoln",
+    title: "Abraham Lincoln",
+    artist: "Daniel Chester French",
+    year: "Modeled 1912, cast after 1912",
     era: "Sculpture",
     medium: "Bronze",
-    image: "images/artworks/sculpture-rodin-the-walking-man.jpg",
-    desc: "A headless, armless body assembled from earlier studies so that the sculpture captures movement itself rather than any one figure."
+    image: "images/artworks/sculpture-french-abraham-lincoln.jpg",
+    desc: "A standing bronze of the president with his hands clasped and his head bowed. French's studies for this monument also led to the seated Lincoln in Washington."
   },
   {
-    id: "carpeaux-ugolino-and-his-children",
-    title: "Ugolino and his Children",
-    artist: "Jean Baptiste Carpeaux",
-    year: "1863–65",
+    id: "saint-gaudens-the-puritan",
+    title: "The Puritan",
+    artist: "Augustus Saint-Gaudens",
+    year: "Modeled 1883–86, cast after 1899",
     era: "Sculpture",
     medium: "Bronze",
-    image: "images/artworks/sculpture-carpeaux-ugolino-and-his-children.jpg",
-    desc: "After Dante's Inferno: the imprisoned Ugolino and his starving sons are rendered in twisting, muscular detail that shocked Carpeaux's contemporaries."
+    image: "images/artworks/sculpture-saint-gaudens-the-puritan.jpg",
+    desc: "A striding figure in a tall hat and swirling cloak, carrying a book and a staff, modelled for a monument at Springfield, Massachusetts."
   },
   {
     id: "barye-lion-fighting-a-serpent",
