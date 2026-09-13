@@ -72,6 +72,47 @@
         </div>
       </div>
     </section>
+
+    <!-- FEATURE 2 — Curator's Random Tour Generator (driven by js/tour.js) -->
+    <section class="section" id="tour">
+      <div class="container">
+        <h2>Curator's tour</h2>
+        <p>
+          Each collection has its own logic — or you can let the museum deal the
+          cards and draw five works at random from across the catalogue.
+        </p>
+        <button class="btn btn--primary" type="button" id="tour-start">
+          Start a Random Tour
+        </button>
+
+        <!-- Hidden until the start button adds the .open class (js/tour.js) -->
+        <div class="tour-panel" id="tour-panel">
+          <p class="tour-counter" id="tour-counter" aria-live="polite">1 of 5</p>
+
+          <article class="tour-artwork">
+            <!-- transparent 1x1 placeholder (no extra request); js/tour.js sets
+                 the real src + alt before the panel is revealed -->
+            <img
+              class="tour-image"
+              id="tour-image"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              alt=""
+            />
+            <div class="tour-details">
+              <h3 class="tour-title" id="tour-title"></h3>
+              <p class="tour-meta" id="tour-meta"></p>
+              <p class="tour-desc" id="tour-desc"></p>
+            </div>
+          </article>
+
+          <div class="tour-controls">
+            <button class="btn btn--secondary" type="button" id="tour-prev">Previous</button>
+            <button class="btn btn--primary" type="button" id="tour-next">Next</button>
+            <button class="btn btn--secondary" type="button" id="tour-close">Close</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Shared footer. Reused verbatim on every page. -->
@@ -108,6 +149,8 @@
     </div>
   </footer>
 
+  <script src="js/data.js"></script>
+  <script src="js/tour.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>

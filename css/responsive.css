@@ -69,6 +69,11 @@
   .footer-inner {
     gap: var(--space-lg);
   }
+
+  /* Curator's tour: image stacks above the caption instead of beside it */
+  .tour-artwork {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --------------------------------------------------------------------------
