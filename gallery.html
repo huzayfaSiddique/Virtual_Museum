@@ -42,6 +42,13 @@
           <li><a href="exhibitions.html">Exhibitions</a></li>
           <li><a href="gallery.html" class="is-active" aria-current="page">Gallery</a></li>
           <li><a href="visit.html">Visit</a></li>
+          <li>
+            <a class="nav-fav" href="gallery.html" title="Open My Collection">
+              <span class="fav-heart" aria-hidden="true">♡</span>
+              <span class="fav-count" id="fav-count">0</span>
+              <span class="nav-fav-label">Saved</span>
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -59,7 +66,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="gallery">
       <div class="container">
         <h2>The full catalogue</h2>
         <p>
@@ -69,7 +76,22 @@
         </p>
         <div class="button-row">
           <a class="btn btn--secondary" href="exhibitions.html">Start with a collection</a>
+          <button class="btn btn--primary" type="button" id="my-collection-toggle">
+            View My Collection
+          </button>
         </div>
+
+        <!-- Artwork cards are built by js/gallery.js from the data.js dataset. -->
+        <div class="gallery-grid" id="gallery-grid"></div>
+
+        <!-- FEATURE 3 — optional "My Collection" panel, populated by js/favorites.js -->
+        <aside class="my-collection-panel" id="my-collection" aria-live="polite">
+          <h3 class="my-collection-title">My Collection</h3>
+          <ul class="my-collection-list" id="my-collection-list"></ul>
+          <button class="btn btn--secondary" type="button" id="my-collection-clear">
+            Clear all saved
+          </button>
+        </aside>
       </div>
     </section>
   </main>
@@ -108,6 +130,9 @@
     </div>
   </footer>
 
+  <script src="js/data.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/favorites.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>

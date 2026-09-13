@@ -476,7 +476,182 @@ body.nav-open {
 }
 
 /* --------------------------------------------------------------------------
-   10. Motion preferences (plan §4.5)
+   10. Gallery grid & artwork cards  —  FEATURE 3
+   -------------------------------------------------------------------------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.art-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-ivory);
+  border: 1px solid rgba(74, 22, 32, 0.14);
+  border-radius: 2px;
+}
+
+.art-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.art-thumb img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background-color: var(--color-cream);
+}
+
+.art-title {
+  margin-bottom: var(--space-xs);
+}
+
+.art-meta {
+  margin-bottom: var(--space-xs);
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.art-era {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+/* Favorite toggle — overlaid on the top-right of the image */
+.fav-btn {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  border: 1px solid var(--color-gold);
+  border-radius: 999px;
+  background-color: var(--color-ivory);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.fav-btn .fav-heart {
+  color: var(--color-gold);
+}
+
+/* Saved state mirrors the button's aria-pressed ("true" = in My Collection) */
+.fav-btn[aria-pressed="true"] {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ivory);
+}
+
+/* --------------------------------------------------------------------------
+   11. Favorites / "My Collection"  —  FEATURE 3
+   -------------------------------------------------------------------------- */
+/* Shared header counter pill (present in the nav on every page) */
+.nav-fav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid rgba(184, 146, 63, 0.5);
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+}
+
+/* The standard nav underline effect does not suit the counter pill */
+.nav-menu a.nav-fav::after {
+  display: none;
+}
+
+.nav-fav .fav-heart {
+  color: var(--color-gold);
+}
+
+.nav-fav .fav-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background-color: var(--color-gold);
+  color: var(--color-maroon-deep);
+  font-size: var(--fs-sm);
+  line-height: 1;
+}
+
+.nav-fav .nav-fav-label {
+  font-size: var(--fs-sm);
+}
+
+/* "My Collection" panel — hidden until .open is toggled by js/favorites.js */
+.my-collection-panel {
+  display: none;
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  background-color: var(--color-ivory);
+  border: 1px solid rgba(74, 22, 32, 0.14);
+  border-left: 4px solid var(--color-gold);
+}
+
+.my-collection-panel.open {
+  display: block;
+}
+
+.my-collection-list {
+  list-style: none;
+  margin: 0 0 var(--space-lg);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.my-collection-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.my-collection-thumb {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  background-color: var(--color-cream);
+}
+
+.my-collection-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.my-collection-title {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-maroon);
+}
+
+.my-collection-meta {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.my-collection-empty {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+  font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   12. Motion preferences (plan §4.5)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
