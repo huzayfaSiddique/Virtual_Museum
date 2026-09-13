@@ -616,6 +616,71 @@ body.nav-open {
 }
 
 /* --------------------------------------------------------------------------
+   10d. Contact form  —  FEATURE 6
+   -------------------------------------------------------------------------- */
+.contact-form {
+  max-width: 40rem;
+}
+
+.form-field {
+  margin-bottom: var(--space-lg);
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-body);
+  font-family: inherit;
+  color: var(--color-ink);
+  background-color: var(--color-ivory);
+  border: 1px solid rgba(74, 22, 32, 0.25);
+  border-radius: 2px;
+}
+
+.form-field input:focus-visible,
+.form-field textarea:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Red border flag added by js/form.js on an invalid field */
+.form-field input.invalid,
+.form-field textarea.invalid {
+  border-color: #a33a2e;
+}
+
+.error-msg {
+  display: block;
+  margin-top: var(--space-xs);
+  font-size: var(--fs-sm);
+  color: #a33a2e;
+}
+
+/* Empty error spans take up no space until js/form.js fills them */
+.error-msg:empty {
+  display: none;
+}
+
+.form-success {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background-color: #e9f2e6;
+  border-left: 4px solid #4a7d3a;
+}
+
+.form-success p {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
    11. Favorites / "My Collection"  —  FEATURE 3
    -------------------------------------------------------------------------- */
 /* Shared header counter pill (present in the nav on every page) */
