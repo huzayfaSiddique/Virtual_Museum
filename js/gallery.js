@@ -255,6 +255,7 @@
     } else {
       // Draw the full catalogue first.
       renderGallery(artworks);
+    }
 
     // --- Grid click → open the lightbox (FEATURE 5) -------------------------
     var grid = document.getElementById("gallery-grid");
@@ -299,7 +300,6 @@
       });
 
       document.addEventListener("keydown", handleLightboxKey);
-    }
     }
 
     // Listen for hash changes (e.g. back/forward navigation or link clicks)
