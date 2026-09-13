@@ -10,6 +10,9 @@
    - FEATURE 4: a text search box + era filter chips re-render the grid in
      real time. Search text AND selected era are combined; an empty result
      shows a "No results" message.
+   - FEATURE 5: clicking a card opens a lightbox modal (image, title, artist,
+      year, medium, description) with Next/Previous that walk the *currently
+      filtered* list, and closes via the × button, the backdrop, or Escape.
 
    Interaction with favorites (js/favorites.js)
    ---------------------------------------------
@@ -26,6 +29,7 @@
 
   var currentSearch = ""; // raw text in the search box
   var currentEra = "all"; // active era chip ("all" = no era filter)
+  var currentList = []; // artworks currently shown — the lightbox pivots on this
 
   // Escape text so it is safe to interpolate into an HTML attribute.
   function esc(value) {
@@ -40,6 +44,8 @@
   // "No results" message instead. Always signals listeners (via a custom
   // event) so favorites.js can restore ♥ state on re-rendered cards.
   function renderGallery(cards) {
+    currentList = cards; // keep the exact list the grid shows
+
     var grid = document.getElementById("gallery-grid");
     if (!grid) {
       return;
@@ -125,6 +131,95 @@
     renderGallery(list);
   }
 
+  // --- Lightbox / modal (FEATURE 5) ----------------------------------------
+  // One reusable modal lives in gallery.html; this code only populates and
+  // shows/hides it. Next/Previous walk `currentList`, i.e. the *currently
+  // filtered* set, per the plan.
+
+  var lightbox = null;
+  var lightboxImage = null;
+  var lightboxTitle = null;
+  var lightboxMeta = null;
+  var lightboxDesc = null;
+  var lightboxCounter = null;
+  var lightboxPrev = null;
+  var lightboxNext = null;
+  var lightboxClose = null;
+  var currentIndex = 0;
+
+  function findIndexById(id) {
+    for (var i = 0; i < currentList.length; i++) {
+      if (currentList[i].id === id) {
+        return i;
+      }
+    }
+    return -1; // id not in the currently shown list
+  }
+
+  // Fill the (already visible) modal from the artwork at currentIndex.
+  function renderLightbox() {
+    var art = currentList[currentIndex];
+    if (!art) {
+      return;
+    }
+    lightboxImage.src = art.image;
+    lightboxImage.alt = art.title + " by " + art.artist;
+    lightboxTitle.textContent = art.title;
+    lightboxMeta.textContent = art.artist + " · " + art.year + " · " + art.medium;
+    lightboxDesc.textContent = art.desc;
+    lightboxCounter.textContent = currentIndex + 1 + " of " + currentList.length;
+    lightboxPrev.disabled = currentIndex <= 0;
+    lightboxNext.disabled = currentIndex >= currentList.length - 1;
+  }
+
+  function openLightbox(id) {
+    currentIndex = findIndexById(id);
+    if (currentIndex === -1) {
+      return;
+    }
+    renderLightbox();
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lightbox-open"); // lock background scroll
+    lightboxClose.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lightbox-open");
+  }
+
+  function nextLightbox() {
+    if (currentIndex < currentList.length - 1) {
+      currentIndex++;
+      renderLightbox();
+    }
+  }
+
+  function prevLightbox() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderLightbox();
+    }
+  }
+
+  // Escape closes; ArrowLeft/ArrowRight browse (keyboard accessibility).
+  function handleLightboxKey(event) {
+    if (!lightbox.classList.contains("open")) {
+      return; // ignore keys unless the modal is open
+    }
+    if (event.key === "Escape") {
+      closeLightbox();
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      nextLightbox();
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      prevLightbox();
+    }
+  }
+
   // Switch the active chip UI and filter to "saved" mode.
   function activateSavedFilter(shouldScroll) {
     currentEra = "saved";
@@ -160,6 +255,51 @@
     } else {
       // Draw the full catalogue first.
       renderGallery(artworks);
+
+    // --- Grid click → open the lightbox (FEATURE 5) -------------------------
+    var grid = document.getElementById("gallery-grid");
+    if (grid) {
+      grid.addEventListener("click", function (event) {
+        var target = event.target;
+        if (!target || !target.closest) {
+          return;
+        }
+        // Let favorites.js own the ♥ button — never open a modal from it.
+        if (target.closest(".fav-btn")) {
+          return;
+        }
+        var card = target.closest(".art-card");
+        if (card) {
+          openLightbox(card.getAttribute("data-art-id"));
+        }
+      });
+    }
+
+    // --- Lightbox controls and keyboard handling (FEATURE 5) -----------------
+    lightbox = document.getElementById("lightbox");
+    if (lightbox) {
+      lightboxImage = document.getElementById("lightbox-image");
+      lightboxTitle = document.getElementById("lightbox-title");
+      lightboxMeta = document.getElementById("lightbox-meta");
+      lightboxDesc = document.getElementById("lightbox-desc");
+      lightboxCounter = document.getElementById("lightbox-counter");
+      lightboxPrev = document.getElementById("lightbox-prev");
+      lightboxNext = document.getElementById("lightbox-next");
+      lightboxClose = document.getElementById("lightbox-close");
+
+      lightboxClose.addEventListener("click", closeLightbox);
+      lightboxPrev.addEventListener("click", prevLightbox);
+      lightboxNext.addEventListener("click", nextLightbox);
+
+      // Clicking the dark backdrop (the .lightbox itself, not its dialog) closes.
+      lightbox.addEventListener("click", function (event) {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener("keydown", handleLightboxKey);
+    }
     }
 
     // Listen for hash changes (e.g. back/forward navigation or link clicks)

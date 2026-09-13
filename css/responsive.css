@@ -80,6 +80,15 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: var(--space-md);
   }
+
+  /* Lightbox: bring the padding in on tablets */
+  .lightbox {
+    padding: var(--space-md);
+  }
+
+  .lightbox-figure {
+    padding: var(--space-md);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -115,5 +124,15 @@
   /* Gallery: single column on the narrowest screens */
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Lightbox: shorter image and centered controls on phones */
+  .lightbox-image {
+    max-height: 45vh;
+  }
+
+  .lightbox-actions {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
