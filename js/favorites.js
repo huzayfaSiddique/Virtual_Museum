@@ -141,6 +141,15 @@
     //    the persistent grid container, so re-rendered cards keep working.
     var grid = document.getElementById("gallery-grid");
     if (grid) {
+      // Re-sync ♥ state whenever the grid is re-rendered (e.g. after a
+      // search/filter in gallery.js). gallery.js dispatches a "gallery-rendered"
+      // CustomEvent on the grid; this listener restores the saved state that
+      // fresh cards are built without.
+      grid.addEventListener("gallery-rendered", function () {
+        syncCards();
+        renderCollection();
+      });
+
       grid.addEventListener("click", function (event) {
         var target = event.target;
         var btn = target && target.closest ? target.closest(".fav-btn") : null;

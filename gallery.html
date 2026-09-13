@@ -81,6 +81,29 @@
           </button>
         </div>
 
+        <!-- FEATURE 4 — Live search & filter (driven by js/gallery.js) -->
+        <div class="gallery-toolbar">
+          <input
+            type="search"
+            id="filter-search"
+            placeholder="Search by title or artist…"
+            aria-label="Search artworks by title or artist"
+          />
+
+          <div
+            class="filter-chips"
+            id="filter-chips"
+            role="group"
+            aria-label="Filter by era"
+          >
+            <button class="chip is-active" type="button" data-era="all">All</button>
+            <button class="chip" type="button" data-era="Renaissance">Renaissance</button>
+            <button class="chip" type="button" data-era="Impressionism">Impressionism</button>
+            <button class="chip" type="button" data-era="Modern">Modern</button>
+            <button class="chip" type="button" data-era="Sculpture">Sculpture</button>
+          </div>
+        </div>
+
         <!-- Artwork cards are built by js/gallery.js from the data.js dataset. -->
         <div class="gallery-grid" id="gallery-grid"></div>
 

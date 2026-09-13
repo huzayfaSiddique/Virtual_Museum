@@ -554,6 +554,68 @@ body.nav-open {
 }
 
 /* --------------------------------------------------------------------------
+   10b. Live search & filter toolbar  —  FEATURE 4
+   -------------------------------------------------------------------------- */
+.gallery-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-block: var(--space-lg);
+}
+
+#filter-search {
+  flex: 1 1 260px;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-sm);
+  color: var(--color-ink);
+  background-color: var(--color-ivory);
+  border: 1px solid rgba(74, 22, 32, 0.25);
+  border-radius: 2px;
+}
+
+#filter-search:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.chip {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  border: 1px solid rgba(74, 22, 32, 0.25);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.chip.is-active {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-maroon-deep);
+}
+
+.chip:hover {
+  border-color: var(--color-gold);
+}
+
+/* Shown by js/gallery.js when search + filter match nothing */
+.no-results {
+  padding: var(--space-lg);
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+  border: 1px dashed rgba(74, 22, 32, 0.3);
+}
+
+/* --------------------------------------------------------------------------
    11. Favorites / "My Collection"  —  FEATURE 3
    -------------------------------------------------------------------------- */
 /* Shared header counter pill (present in the nav on every page) */

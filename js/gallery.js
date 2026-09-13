@@ -1,23 +1,31 @@
 /* ==========================================================================
-   gallery.js — Gallery page artwork grid renderer
-   Used on the Gallery page (plan §5, Feature 3 — Favorites needs the cards).
+   gallery.js — Gallery page: artwork grid + FEATURE 4 (Live Search & Filter)
+   Used on the Gallery page (plan §5, Features 3, 4 & 5).
 
-   Responsibility
-   --------------
-   Builds the <article class="art-card"> grid in #gallery-grid from the
-   `artworks` array in js/data.js. Each card carries a favorite button whose
-   click state is managed by js/favorites.js (this file only renders the base
-   card markup; it never reads or writes localStorage).
+   Responsibilities
+   -----------------
+   - Builds the <article class="art-card"> grid in #gallery-grid from the
+     `artworks` array in js/data.js (also used, with a filtered list, to
+     re-render on search/filter).
+   - FEATURE 4: a text search box + era filter chips re-render the grid in
+     real time. Search text AND selected era are combined; an empty result
+     shows a "No results" message.
 
-   Later Features (4 = Live search & filter, 5 = Lightbox) will re-use this
-   same renderer to draw the *filtered* list — js/favorites.js uses event
-   delegation on the persistent #gallery-grid container, so re-rendering the
-   cards does not break favorite toggling.
+   Interaction with favorites (js/favorites.js)
+   ---------------------------------------------
+   This file only renders card markup and never reads/writes localStorage.
+   js/favorites.js listens for clicks on the persistent #gallery-grid (event
+   delegation) and re-applies saved ♥ state whenever the grid fires a
+   "gallery-rendered" custom event — so filtering stays in sync with the
+   saved state without coupling the two files.
 
    Requires js/data.js to be loaded first (provides the `artworks` array).
    ========================================================================== */
 (function () {
   "use strict";
+
+  var currentSearch = ""; // raw text in the search box
+  var currentEra = "all"; // active era chip ("all" = no era filter)
 
   // Escape text so it is safe to interpolate into an HTML attribute.
   function esc(value) {
@@ -28,11 +36,19 @@
       .replace(/>/g, "&gt;");
   }
 
-  // Render every artwork as a card. Accepts a list so later Features can pass
-  // a filtered subset without changing how cards are built.
+  // Render a list of artworks as cards. An empty list shows a friendly
+  // "No results" message instead. Always signals listeners (via a custom
+  // event) so favorites.js can restore ♥ state on re-rendered cards.
   function renderGallery(cards) {
     var grid = document.getElementById("gallery-grid");
     if (!grid) {
+      return;
+    }
+
+    if (!cards.length) {
+      grid.innerHTML =
+        '<p class="no-results">No works match — try another title or artist, or clear the filters.</p>';
+      grid.dispatchEvent(new CustomEvent("gallery-rendered"));
       return;
     }
 
@@ -59,13 +75,70 @@
     }).join("");
 
     grid.innerHTML = html;
+    grid.dispatchEvent(new CustomEvent("gallery-rendered"));
+  }
+
+  // Combine the current search term AND the selected era, then re-render.
+  function applyFilters() {
+    var term = currentSearch.trim().toLowerCase();
+    var list = artworks.filter(function (art) {
+      var matchesSearch =
+        !term ||
+        art.title.toLowerCase().includes(term) ||
+        art.artist.toLowerCase().includes(term);
+      var matchesEra = currentEra === "all" || art.era === currentEra;
+      return matchesSearch && matchesEra;
+    });
+    renderGallery(list);
   }
 
   function init() {
     if (typeof artworks === "undefined" || !Array.isArray(artworks)) {
       return;
     }
+
+    // Draw the full catalogue first.
     renderGallery(artworks);
+
+    // --- FEATURE 4a: live text search (lightly debounced) ---
+    var searchInput = document.getElementById("filter-search");
+    var debounceTimer = null;
+    if (searchInput) {
+      searchInput.addEventListener("input", function () {
+        // Debounce so we only re-render ~120ms after the user pauses typing.
+        window.clearTimeout(debounceTimer);
+        debounceTimer = window.setTimeout(function () {
+          currentSearch = searchInput.value;
+          applyFilters();
+        }, 120);
+      });
+    }
+
+    // --- FEATURE 4b: era filter chips (delegated). One has .is-active at a time.
+    var chips = document.getElementById("filter-chips");
+    if (chips) {
+      chips.addEventListener("click", function (event) {
+        var target = event.target;
+        var chip = target && target.closest ? target.closest(".chip") : null;
+        if (!chip) {
+          return;
+        }
+
+        currentEra = chip.getAttribute("data-era") || "all";
+
+        // Move the .is-active state to the clicked chip.
+        var all = chips.querySelectorAll(".chip");
+        for (var i = 0; i < all.length; i++) {
+          if (all[i] === chip) {
+            all[i].classList.add("is-active");
+          } else {
+            all[i].classList.remove("is-active");
+          }
+        }
+
+        applyFilters();
+      });
+    }
   }
 
   if (document.readyState === "loading") {
