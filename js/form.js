@@ -1,24 +1,3 @@
-/* ==========================================================================
-   form.js — Feature 6: Contact Form Validation (Visit page)
-   Used only on visit.html (plan §5, Feature 6).
-
-   Behaviour
-   ---------
-   - A submit listener calls event.preventDefault() (there is no backend).
-   - Validates each field:
-       · Name / Subject  -> required, must not be blank after trimming
-       · Email           -> required + matches a regex pattern
-       · Message         -> required + at least MIN_MESSAGE characters
-   - Invalid fields get a red border and an inline .error-msg the moment you
-     submit; the error clears as the user fixes that field (input listener per
-     field).
-   - If every field is valid, a success banner is shown and the form resets.
-   - Accessibility: each input carries aria-describedby pointing at its error
-     span, so screen readers announce the message.
-
-   Viva talking points: email regex, preventDefault, per-field vs whole-form
-   validation, associating errors via aria-describedby.
-   ========================================================================== */
 (function () {
   "use strict";
 
@@ -35,7 +14,6 @@
     input.classList.remove("invalid");
   }
 
-  // Validate one field; returns true when it is valid.
   function validateField(input, errorEl, type) {
     var value = input.value.trim();
     var error = "";
@@ -53,7 +31,6 @@
         error = "Your message must be at least " + MESSAGE_MIN + " characters long.";
       }
     } else {
-      // required: name and subject
       if (!value) {
         error = "Please fill in this field.";
       }
@@ -73,7 +50,6 @@
     }
   }
 
-  // Re-validate a field whenever the user edits it, so errors clear live.
   function attachLiveClear(field) {
     field.input.addEventListener("input", function () {
       validateField(field.input, field.errorEl, field.type);
@@ -88,7 +64,6 @@
 
     var successBanner = document.getElementById("form-success");
 
-    // Each entry is { input, errorEl, type }.
     var fields = [
       { input: document.getElementById("form-name"), type: "required" },
       { input: document.getElementById("form-email"), type: "email" },
@@ -129,7 +104,6 @@
         return;
       }
 
-      // All valid — show confirmation and reset (no backend here).
       if (successBanner) {
         successBanner.hidden = false;
       }
@@ -138,20 +112,18 @@
     });
   }
 
-  // Deliberate moment §4.4: Live visitor status line updater
   function initVisitStatus() {
     var statusEl = document.getElementById("visit-status");
     if (!statusEl) return;
 
     var now = new Date();
-    var day = now.getDay(); // 0 = Sun, 1 = Mon, ..., 5 = Fri, 6 = Sat
+    var day = now.getDay();
 
     var dot = statusEl.querySelector(".status-dot");
     var title = statusEl.querySelector(".status-title");
     var time = statusEl.querySelector(".status-time");
 
     if (day === 1) {
-      // Monday is closed
       if (dot) {
         dot.classList.remove("status-dot--open");
         dot.classList.add("status-dot--closed");
@@ -159,7 +131,6 @@
       if (title) title.textContent = "Closed today";
       if (time) time.textContent = "Opens Tuesday 10am";
     } else if (day === 5) {
-      // Friday late hours
       if (time) time.textContent = "10am–8pm (Late hours)";
     }
   }

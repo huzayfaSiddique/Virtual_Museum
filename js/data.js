@@ -1,11 +1,3 @@
-/* ==========================================================================
-   data.js — artwork dataset (shared by every page that renders artworks)
-   Fields per plan §3: id, title, artist, year, era, medium, image, desc
-
-   20 works from the Art Institute of Chicago's open-access collection.
-   Every entry is public domain (is_public_domain = true); the image files in
-   /images/artworks were downloaded from the museum's IIIF endpoint at 843px.
-   ========================================================================== */
 const artworks = [
   {
     id: "fra-angelico-saint-anthony-abbot",

@@ -1,19 +1,4 @@
-/* ==========================================================================
-   Virtual Museum — Responsive stylesheet
-   Media queries for tablet (<=768px) and mobile (<=480px) per plan §3 / §4.3.
-   Loaded after style.css on every page.
-   Feature 1 — Responsive Navigation: below 768px the nav <ul> becomes an
-   off-canvas panel and the hamburger (.nav-toggle) is revealed.
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   Tablet & below — 768px
-   -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-
-  /* Reveal the hamburger control and pin it to the right edge.
-     .site-nav is only a wrapper here (its <ul> is out of flow), so drop its
-     desktop auto-margin to stop the two auto-margins splitting the free space. */
   .nav-toggle {
     display: inline-flex;
     margin-left: auto;
@@ -23,8 +8,6 @@
     margin-left: 0;
   }
 
-  /* Collapse the horizontal nav list into an off-canvas panel that slides
-     in from the right. The .open class is toggled by js/nav.js. */
   .nav-menu {
     position: fixed;
     top: 0;
@@ -56,7 +39,6 @@
     padding-block: var(--space-sm);
   }
 
-  /* The underline effect reads poorly on the tall stacked links */
   .nav-menu a::after {
     display: none;
   }
@@ -65,12 +47,10 @@
     color: var(--color-gold);
   }
 
-  /* Footer stacks its columns and tightens the gap */
   .footer-inner {
     gap: var(--space-lg);
   }
 
-  /* Home Hero: single column stack on tablet */
   .hero-inner {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
@@ -80,18 +60,15 @@
     max-width: 100%;
   }
 
-  /* About mission pull-quote: comfortable padding on tablet */
   .mission-pullquote {
     padding-left: var(--space-md);
   }
 
-  /* Exhibitions collection cards: adjusted gap on tablet */
   .exhibitions-grid {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--space-lg);
   }
 
-  /* Contact form rules — tablet pass (plan §6) */
   .contact-form {
     width: 100%;
     max-width: 100%;
@@ -103,22 +80,19 @@
 
   .form-field input,
   .form-field textarea {
-    font-size: 1rem; /* prevents iOS Safari auto-zoom on focus */
+    font-size: 1rem;
     padding: 0.75rem var(--space-md);
   }
 
-  /* Curator's tour: image stacks above the caption instead of beside it */
   .tour-artwork {
     grid-template-columns: 1fr;
   }
 
-  /* Gallery: tighten to two columns on tablets */
   .gallery-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: var(--space-md);
   }
 
-  /* Lightbox: bring the padding in on tablets */
   .lightbox {
     padding: var(--space-md);
   }
@@ -128,12 +102,7 @@
   }
 }
 
-/* --------------------------------------------------------------------------
-   Mobile — 480px
-   -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
-
-  /* Step the display type down so headings do not overflow */
   :root {
     --fs-hero: 2.5rem;
     --fs-h1: 2rem;
@@ -149,7 +118,6 @@
     padding-block: var(--space-lg) var(--space-md);
   }
 
-  /* Home Hero: compact mobile treatment */
   .hero--home {
     padding-block: var(--space-lg);
   }
@@ -163,37 +131,32 @@
     justify-content: center;
   }
 
-  /* About mission pull-quote on mobile */
   .mission-text {
     font-size: 1.25rem;
     line-height: 1.35;
   }
 
-  /* Exhibitions: single column card flow */
   .exhibitions-grid {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
   }
 
-  /* Visit status line on mobile */
   .visit-status-badge {
     width: 100%;
     font-size: 0.8125rem;
     padding: 0.35rem 0.65rem;
   }
 
-  /* Visiting hours table compact cell padding */
   .hours-table th,
   .hours-table td {
     padding: var(--space-xs) var(--space-sm);
     font-size: 0.8125rem;
   }
 
-  /* Contact Form — Mobile pass (build order §6) */
   .contact-form .btn {
     width: 100%;
     justify-content: center;
-    min-height: 48px; /* accessible touch target */
+    min-height: 48px;
   }
 
   .form-field input {
@@ -209,7 +172,6 @@
     font-size: 0.8125rem;
   }
 
-  /* Give the off-canvas panel more of the small screen */
   .nav-menu {
     width: 88vw;
   }
@@ -218,12 +180,10 @@
     flex-basis: 100%;
   }
 
-  /* Gallery: single column on the narrowest screens */
   .gallery-grid {
     grid-template-columns: 1fr;
   }
 
-  /* Lightbox: shorter image and centered controls on phones */
   .lightbox-image {
     max-height: 45vh;
   }

@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
-  <!-- Shared header / navigation (Feature 1). Reused verbatim on every page. -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="index.html">Virtual<span>Museum</span></a>
@@ -81,7 +80,6 @@
           </button>
         </div>
 
-        <!-- FEATURE 4 — Live search & filter (driven by js/gallery.js) -->
         <div class="gallery-toolbar">
           <input
             type="search"
@@ -105,10 +103,8 @@
           </div>
         </div>
 
-        <!-- Artwork cards are built by js/gallery.js from the data.js dataset. -->
         <div class="gallery-grid" id="gallery-grid"></div>
 
-        <!-- FEATURE 3 — optional "My Collection" panel, populated by js/favorites.js -->
         <aside class="my-collection-panel" id="my-collection" aria-live="polite">
           <h3 class="my-collection-title">My Collection</h3>
           <ul class="my-collection-list" id="my-collection-list"></ul>
@@ -120,7 +116,6 @@
     </section>
   </main>
 
-  <!-- FEATURE 5 — Artwork lightbox / modal (populated by js/gallery.js) -->
   <div
     class="lightbox"
     id="lightbox"
@@ -152,7 +147,6 @@
     </div>
   </div>
 
-  <!-- Shared footer. Reused verbatim on every page. -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">

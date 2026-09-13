@@ -1,50 +1,32 @@
-/* ==========================================================================
-   Virtual Museum — Global Stylesheet
-   Design system + shared components (header/nav, footer, typography, buttons).
-   Built once and reused on every page (plan §4.7).
-   Feature 1 — Responsive Navigation lives in the "Header / Navigation" block.
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   1. Design tokens  (plan §4.1–4.3 — defined once, reused everywhere)
-   -------------------------------------------------------------------------- */
 :root {
-  /* Colour palette */
-  --color-maroon: #4a1620;        /* primary brand — header/footer, key headings */
-  --color-maroon-deep: #2f0e15;   /* hover/active states, deepest shadows */
-  --color-gold: #b8923f;          /* accent only — buttons, active links, dividers */
-  --color-cream: #f3ede1;         /* page background */
-  --color-ivory: #fbf8f2;         /* card/panel background */
-  --color-ink: #241d1a;           /* body text */
-  --color-ink-soft: #5c5147;      /* secondary/meta text */
+  --color-maroon: #4a1620;
+  --color-maroon-deep: #2f0e15;
+  --color-gold: #b8923f;
+  --color-cream: #f3ede1;
+  --color-ivory: #fbf8f2;
+  --color-ink: #241d1a;
+  --color-ink-soft: #5c5147;
 
-  /* Type scale — 14 / 16 / 20 / 28 / 40 / 64 */
-  --fs-sm: 0.875rem;   /* 14px */
-  --fs-body: 1rem;     /* 16px */
-  --fs-h3: 1.25rem;    /* 20px */
-  --fs-h2: 1.75rem;    /* 28px */
-  --fs-h1: 2.5rem;     /* 40px */
-  --fs-hero: 4rem;     /* 64px */
+  --fs-sm: 0.875rem;
+  --fs-body: 1rem;
+  --fs-h3: 1.25rem;
+  --fs-h2: 1.75rem;
+  --fs-h1: 2.5rem;
+  --fs-hero: 4rem;
 
-  /* Spacing scale */
-  --space-xs: 0.25rem; /* 4px  */
-  --space-sm: 0.5rem;  /* 8px  */
-  --space-md: 1rem;    /* 16px */
-  --space-lg: 2rem;    /* 32px */
-  --space-xl: 4rem;    /* 64px */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
 
-  /* Typefaces */
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "Work Sans", system-ui, -apple-system, Segoe UI, sans-serif;
 
-  /* Shared measures */
   --header-height: 4.5rem;
   --transition: 220ms ease;
 }
 
-/* --------------------------------------------------------------------------
-   2. Reset & base
-   -------------------------------------------------------------------------- */
 *,
 *::before,
 *::after {
@@ -91,16 +73,12 @@ address {
   font-style: normal;
 }
 
-/* Visible keyboard focus on every interactive element (plan §4.8) */
 :focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* --------------------------------------------------------------------------
-   3. Typography helpers
-   -------------------------------------------------------------------------- */
 h1,
 h2,
 h3 {
@@ -125,9 +103,6 @@ p {
   color: var(--color-ink-soft);
 }
 
-/* --------------------------------------------------------------------------
-   4. Layout helpers
-   -------------------------------------------------------------------------- */
 .container {
   width: min(1120px, 92%);
   margin-inline: auto;
@@ -137,16 +112,10 @@ p {
   padding-block: var(--space-xl);
 }
 
-/* Utility: hide an element from JS by class (e.g. the tour's start button) */
 .is-hidden {
   display: none;
 }
 
-/* --------------------------------------------------------------------------
-   5. Header / Navigation  —  FEATURE 1 (Responsive Navigation)
-   Desktop layout below; the collapse-to-hamburger behaviour under 768px
-   lives in css/responsive.css.
-   -------------------------------------------------------------------------- */
 .site-header {
   position: sticky;
   top: 0;
@@ -194,7 +163,6 @@ p {
   letter-spacing: 0.02em;
 }
 
-/* Gold underline on hover / for the current page */
 .nav-menu a::after {
   content: "";
   position: absolute;
@@ -215,7 +183,6 @@ p {
   color: var(--color-gold);
 }
 
-/* Hamburger button — hidden on desktop, revealed under 768px (responsive.css) */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -240,7 +207,6 @@ p {
   transition: transform var(--transition), opacity var(--transition);
 }
 
-/* Morph the hamburger into a close (x) when the menu is open */
 .nav-toggle.open .nav-toggle-bar:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -253,7 +219,6 @@ p {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Dim overlay behind the off-canvas menu (mobile only) */
 .nav-overlay {
   position: fixed;
   inset: 0;
@@ -269,14 +234,10 @@ p {
   visibility: visible;
 }
 
-/* Lock background scroll while the mobile menu is open */
 body.nav-open {
   overflow: hidden;
 }
 
-/* --------------------------------------------------------------------------
-   6. Buttons (plan §4.6 — exactly two variants site-wide)
-   -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -313,23 +274,18 @@ body.nav-open {
   color: var(--color-ivory);
 }
 
-/* Disabled state (e.g. "Previous" on the first step of the tour) */
 .btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* Horizontal group of buttons (Flexbox row) */
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
 }
 
-/* --------------------------------------------------------------------------
-   7. Page intro (shared heading banner used by every page shell)
-   -------------------------------------------------------------------------- */
 .page-intro {
   padding-block: var(--space-xl) var(--space-lg);
   background-color: var(--color-ivory);
@@ -340,11 +296,6 @@ body.nav-open {
   margin-bottom: 0;
 }
 
-/* --------------------------------------------------------------------------
-   7b. Home Hero — Deliberate Moment §4.4
-   Asymmetric layout with featured artwork image, Fraunces at hero scale,
-   and orchestrated reveal animation (respecting prefers-reduced-motion).
-   -------------------------------------------------------------------------- */
 .hero--home {
   position: relative;
   background-color: var(--color-ivory);
@@ -438,7 +389,6 @@ body.nav-open {
   color: var(--color-ink-soft);
 }
 
-/* Orchestrated entrance reveal (plan §4.5) */
 @keyframes heroImageReveal {
   from {
     opacity: 0;
@@ -471,11 +421,6 @@ body.nav-open {
   }
 }
 
-/* --------------------------------------------------------------------------
-   7c. About Pull-Quote Mission — Deliberate Moment §4.4
-   Typeset in large Fraunces, breaking the grid slightly to set an
-   architectural, catalogue-style presence.
-   -------------------------------------------------------------------------- */
 .section--mission {
   padding-block: var(--space-xl) var(--space-lg);
   border-bottom: 1px solid rgba(74, 22, 32, 0.1);
@@ -510,12 +455,6 @@ body.nav-open {
   color: var(--color-ink-soft);
 }
 
-/* --------------------------------------------------------------------------
-   7d. Exhibitions Collection Cards — Deliberate Moment §4.4
-   Four distinct collection wings, each powered by a dominant era accent color:
-   Renaissance = deep maroon, Impressionism = soft blue, Modern = mustard,
-   Sculpture = stone grey.
-   -------------------------------------------------------------------------- */
 .section--collections {
   background-color: var(--color-cream);
 }
@@ -553,21 +492,20 @@ body.nav-open {
   box-shadow: 0 14px 32px rgba(47, 14, 21, 0.1);
 }
 
-/* Per-era dominant colors (plan §4.4) */
 .exhibition-card--renaissance {
-  --era-accent: #4a1620; /* deep maroon */
+  --era-accent: #4a1620;
 }
 
 .exhibition-card--impressionism {
-  --era-accent: #2d5f73; /* soft blue */
+  --era-accent: #2d5f73;
 }
 
 .exhibition-card--modern {
-  --era-accent: #b37d14; /* mustard / ochre */
+  --era-accent: #b37d14;
 }
 
 .exhibition-card--sculpture {
-  --era-accent: #545b62; /* stone grey */
+  --era-accent: #545b62;
 }
 
 .exhibition-card-media {
@@ -661,10 +599,6 @@ body.nav-open {
   color: var(--color-ivory);
 }
 
-/* --------------------------------------------------------------------------
-   7e. Visit Status Line & Hours Table — Deliberate Moment §4.4 + Plan §2
-   Live visitor status line pinned near header, plus accessible hours table.
-   -------------------------------------------------------------------------- */
 .visit-status-badge {
   display: inline-flex;
   align-items: center;
@@ -720,7 +654,6 @@ body.nav-open {
   font-size: 0.8125rem;
 }
 
-/* Visiting Hours Table */
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -790,9 +723,6 @@ body.nav-open {
   border: 0;
 }
 
-/* --------------------------------------------------------------------------
-   8. Footer (shared on every page)
-   -------------------------------------------------------------------------- */
 .site-footer {
   background-color: var(--color-maroon-deep);
   color: var(--color-cream);
@@ -869,9 +799,6 @@ body.nav-open {
   color: rgba(243, 237, 225, 0.65);
 }
 
-/* --------------------------------------------------------------------------
-   9. Curator's random tour  —  FEATURE 2
-   -------------------------------------------------------------------------- */
 .tour-panel {
   display: none;
   margin-top: var(--space-lg);
@@ -881,7 +808,6 @@ body.nav-open {
   border-left: 4px solid var(--color-gold);
 }
 
-/* Revealed by js/tour.js toggling .open on the panel */
 .tour-panel.open {
   display: block;
 }
@@ -925,9 +851,6 @@ body.nav-open {
   margin-top: var(--space-lg);
 }
 
-/* --------------------------------------------------------------------------
-   10. Gallery grid & artwork cards  —  FEATURE 3
-   -------------------------------------------------------------------------- */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -971,7 +894,6 @@ body.nav-open {
   color: var(--color-ink-soft);
 }
 
-/* Favorite toggle — overlaid on the top-right of the image */
 .fav-btn {
   position: absolute;
   top: var(--space-sm);
@@ -996,16 +918,12 @@ body.nav-open {
   color: var(--color-gold);
 }
 
-/* Saved state mirrors the button's aria-pressed ("true" = in My Collection) */
 .fav-btn[aria-pressed="true"] {
   background-color: var(--color-gold);
   border-color: var(--color-gold);
   color: var(--color-ivory);
 }
 
-/* --------------------------------------------------------------------------
-   10b. Live search & filter toolbar  —  FEATURE 4
-   -------------------------------------------------------------------------- */
 .gallery-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -1057,7 +975,6 @@ body.nav-open {
   border-color: var(--color-gold);
 }
 
-/* Shown by js/gallery.js when search + filter match nothing */
 .no-results {
   padding: var(--space-lg);
   font-size: var(--fs-sm);
@@ -1065,10 +982,6 @@ body.nav-open {
   border: 1px dashed rgba(74, 22, 32, 0.3);
 }
 
-/* --------------------------------------------------------------------------
-   10c. Artwork lightbox / modal  —  FEATURE 5 & Deliberate Moment §4.4
-   Lightbox open transition is the deliberate animated moment on the Gallery page.
-   -------------------------------------------------------------------------- */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -1161,14 +1074,10 @@ body.nav-open {
   margin: 0;
 }
 
-/* Lock background scroll while the modal is open (toggled by js/gallery.js) */
 body.lightbox-open {
   overflow: hidden;
 }
 
-/* --------------------------------------------------------------------------
-   10d. Contact form  —  FEATURE 6
-   -------------------------------------------------------------------------- */
 .contact-form {
   max-width: 40rem;
 }
@@ -1202,7 +1111,6 @@ body.lightbox-open {
   outline-offset: 2px;
 }
 
-/* Red border flag added by js/form.js on an invalid field */
 .form-field input.invalid,
 .form-field textarea.invalid {
   border-color: #a33a2e;
@@ -1215,7 +1123,6 @@ body.lightbox-open {
   color: #a33a2e;
 }
 
-/* Empty error spans take up no space until js/form.js fills them */
 .error-msg:empty {
   display: none;
 }
@@ -1231,10 +1138,6 @@ body.lightbox-open {
   margin: 0;
 }
 
-/* --------------------------------------------------------------------------
-   11. Favorites / "My Collection"  —  FEATURE 3
-   -------------------------------------------------------------------------- */
-/* Shared header counter pill (present in the nav on every page) */
 .nav-fav {
   display: inline-flex;
   align-items: center;
@@ -1245,7 +1148,6 @@ body.lightbox-open {
   font-size: var(--fs-sm);
 }
 
-/* The standard nav underline effect does not suit the counter pill */
 .nav-menu a.nav-fav::after {
   display: none;
 }
@@ -1270,7 +1172,6 @@ body.lightbox-open {
   font-size: var(--fs-sm);
 }
 
-/* "My Collection" panel — hidden until .open is toggled by js/favorites.js */
 .my-collection-panel {
   display: none;
   margin-top: var(--space-lg);
@@ -1328,9 +1229,6 @@ body.lightbox-open {
   font-style: italic;
 }
 
-/* --------------------------------------------------------------------------
-   12. Motion preferences (plan §4.5)
-   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

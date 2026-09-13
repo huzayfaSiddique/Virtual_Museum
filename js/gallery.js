@@ -1,37 +1,10 @@
-/* ==========================================================================
-   gallery.js — Gallery page: artwork grid + FEATURE 4 (Live Search & Filter)
-   Used on the Gallery page (plan §5, Features 3, 4 & 5).
-
-   Responsibilities
-   -----------------
-   - Builds the <article class="art-card"> grid in #gallery-grid from the
-     `artworks` array in js/data.js (also used, with a filtered list, to
-     re-render on search/filter).
-   - FEATURE 4: a text search box + era filter chips re-render the grid in
-     real time. Search text AND selected era are combined; an empty result
-     shows a "No results" message.
-   - FEATURE 5: clicking a card opens a lightbox modal (image, title, artist,
-      year, medium, description) with Next/Previous that walk the *currently
-      filtered* list, and closes via the × button, the backdrop, or Escape.
-
-   Interaction with favorites (js/favorites.js)
-   ---------------------------------------------
-   This file only renders card markup and never reads/writes localStorage.
-   js/favorites.js listens for clicks on the persistent #gallery-grid (event
-   delegation) and re-applies saved ♥ state whenever the grid fires a
-   "gallery-rendered" custom event — so filtering stays in sync with the
-   saved state without coupling the two files.
-
-   Requires js/data.js to be loaded first (provides the `artworks` array).
-   ========================================================================== */
 (function () {
   "use strict";
 
-  var currentSearch = ""; // raw text in the search box
-  var currentEra = "all"; // active era chip ("all" = no era filter)
-  var currentList = []; // artworks currently shown — the lightbox pivots on this
+  var currentSearch = "";
+  var currentEra = "all";
+  var currentList = [];
 
-  // Escape text so it is safe to interpolate into an HTML attribute.
   function esc(value) {
     return String(value)
       .replace(/&/g, "&amp;")
@@ -40,11 +13,8 @@
       .replace(/>/g, "&gt;");
   }
 
-  // Render a list of artworks as cards. An empty list shows a friendly
-  // "No results" message instead. Always signals listeners (via a custom
-  // event) so favorites.js can restore ♥ state on re-rendered cards.
   function renderGallery(cards) {
-    currentList = cards; // keep the exact list the grid shows
+    currentList = cards;
 
     var grid = document.getElementById("gallery-grid");
     if (!grid) {
@@ -84,7 +54,6 @@
     grid.dispatchEvent(new CustomEvent("gallery-rendered"));
   }
 
-  // Read saved artwork IDs from localStorage.
   function getSavedIds() {
     try {
       var raw = localStorage.getItem("vm_favorites");
@@ -95,7 +64,6 @@
     }
   }
 
-  // Combine the current search term AND the selected era / saved state, then re-render.
   function applyFilters() {
     var term = currentSearch.trim().toLowerCase();
     var savedIds = getSavedIds();
@@ -131,11 +99,6 @@
     renderGallery(list);
   }
 
-  // --- Lightbox / modal (FEATURE 5) ----------------------------------------
-  // One reusable modal lives in gallery.html; this code only populates and
-  // shows/hides it. Next/Previous walk `currentList`, i.e. the *currently
-  // filtered* set, per the plan.
-
   var lightbox = null;
   var lightboxImage = null;
   var lightboxTitle = null;
@@ -153,10 +116,9 @@
         return i;
       }
     }
-    return -1; // id not in the currently shown list
+    return -1;
   }
 
-  // Fill the (already visible) modal from the artwork at currentIndex.
   function renderLightbox() {
     var art = currentList[currentIndex];
     if (!art) {
@@ -180,7 +142,7 @@
     renderLightbox();
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
-    document.body.classList.add("lightbox-open"); // lock background scroll
+    document.body.classList.add("lightbox-open");
     lightboxClose.focus();
   }
 
@@ -204,10 +166,9 @@
     }
   }
 
-  // Escape closes; ArrowLeft/ArrowRight browse (keyboard accessibility).
   function handleLightboxKey(event) {
     if (!lightbox.classList.contains("open")) {
-      return; // ignore keys unless the modal is open
+      return;
     }
     if (event.key === "Escape") {
       closeLightbox();
@@ -220,7 +181,6 @@
     }
   }
 
-  // Switch the active chip UI and filter to "saved" mode.
   function activateSavedFilter(shouldScroll) {
     currentEra = "saved";
     var chips = document.getElementById("filter-chips");
@@ -244,7 +204,6 @@
     }
   }
 
-  // Switch the active chip UI and filter to a specific era (e.g. from Exhibitions page links).
   function activateEraFilter(eraName, shouldScroll) {
     if (!eraName) return;
     var validEras = ["all", "Renaissance", "Impressionism", "Modern", "Sculpture", "saved"];
@@ -288,7 +247,6 @@
       return;
     }
 
-    // Check if the page loaded with an era parameter (?era=...) or hash (#...)
     var urlParams = new URLSearchParams(window.location.search);
     var eraParam = urlParams.get("era");
     if (eraParam) {
@@ -304,11 +262,9 @@
         renderGallery(artworks);
       }
     } else {
-      // Draw the full catalogue first.
       renderGallery(artworks);
     }
 
-    // --- Grid click → open the lightbox (FEATURE 5) -------------------------
     var grid = document.getElementById("gallery-grid");
     if (grid) {
       grid.addEventListener("click", function (event) {
@@ -316,7 +272,7 @@
         if (!target || !target.closest) {
           return;
         }
-        // Let favorites.js own the ♥ button — never open a modal from it.
+
         if (target.closest(".fav-btn")) {
           return;
         }
@@ -327,7 +283,6 @@
       });
     }
 
-    // --- Lightbox controls and keyboard handling (FEATURE 5) -----------------
     lightbox = document.getElementById("lightbox");
     if (lightbox) {
       lightboxImage = document.getElementById("lightbox-image");
@@ -343,7 +298,6 @@
       lightboxPrev.addEventListener("click", prevLightbox);
       lightboxNext.addEventListener("click", nextLightbox);
 
-      // Clicking the dark backdrop (the .lightbox itself, not its dialog) closes.
       lightbox.addEventListener("click", function (event) {
         if (event.target === lightbox) {
           closeLightbox();
@@ -353,14 +307,12 @@
       document.addEventListener("keydown", handleLightboxKey);
     }
 
-    // Listen for hash changes (e.g. back/forward navigation or link clicks)
     window.addEventListener("hashchange", function () {
       if (window.location.hash === "#saved") {
         activateSavedFilter(true);
       }
     });
 
-    // Header "Saved" button: if clicked on the gallery page, switch filter directly.
     var navFav = document.querySelector(".nav-fav");
     if (navFav) {
       navFav.addEventListener("click", function (event) {
@@ -372,19 +324,16 @@
       });
     }
 
-    // Re-filter when favorites are updated (e.g. if user unsaves a card while in saved mode)
     window.addEventListener("favorites-updated", function () {
       if (currentEra === "saved") {
         applyFilters();
       }
     });
 
-    // --- FEATURE 4a: live text search (lightly debounced) ---
     var searchInput = document.getElementById("filter-search");
     var debounceTimer = null;
     if (searchInput) {
       searchInput.addEventListener("input", function () {
-        // Debounce so we only re-render ~120ms after the user pauses typing.
         window.clearTimeout(debounceTimer);
         debounceTimer = window.setTimeout(function () {
           currentSearch = searchInput.value;
@@ -393,7 +342,6 @@
       });
     }
 
-    // --- FEATURE 4b: era filter chips (delegated). One has .is-active at a time.
     var chips = document.getElementById("filter-chips");
     if (chips) {
       chips.addEventListener("click", function (event) {
@@ -405,7 +353,6 @@
 
         currentEra = chip.getAttribute("data-era") || "all";
 
-        // Update URL hash state when user selects a chip
         if (currentEra === "saved") {
           if (window.location.hash !== "#saved") {
             history.pushState(null, "", "#saved");
@@ -414,7 +361,6 @@
           history.pushState(null, "", window.location.pathname);
         }
 
-        // Move the .is-active state to the clicked chip.
         var all = chips.querySelectorAll(".chip");
         for (var i = 0; i < all.length; i++) {
           if (all[i] === chip) {

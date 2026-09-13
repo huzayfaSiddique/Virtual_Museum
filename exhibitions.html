@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
-  <!-- Shared header / navigation (Feature 1). Reused verbatim on every page. -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="index.html">Virtual<span>Museum</span></a>
@@ -66,7 +65,6 @@
       </div>
     </section>
 
-    <!-- Deliberate moment §4.4: Exhibitions collection cards with per-era accent colors -->
     <section class="section section--collections" id="collections">
       <div class="container">
         <div class="section-header">
@@ -78,7 +76,6 @@
         </div>
 
         <div class="exhibitions-grid">
-          <!-- Card 1: Renaissance (Deep Maroon) -->
           <article class="exhibition-card exhibition-card--renaissance">
             <div class="exhibition-card-media">
               <img
@@ -106,7 +103,6 @@
             </div>
           </article>
 
-          <!-- Card 2: Impressionism (Soft Blue) -->
           <article class="exhibition-card exhibition-card--impressionism">
             <div class="exhibition-card-media">
               <img
@@ -134,7 +130,6 @@
             </div>
           </article>
 
-          <!-- Card 3: Modern (Mustard / Ochre) -->
           <article class="exhibition-card exhibition-card--modern">
             <div class="exhibition-card-media">
               <img
@@ -162,7 +157,6 @@
             </div>
           </article>
 
-          <!-- Card 4: Sculpture (Stone Grey) -->
           <article class="exhibition-card exhibition-card--sculpture">
             <div class="exhibition-card-media">
               <img
@@ -193,7 +187,6 @@
       </div>
     </section>
 
-    <!-- FEATURE 2 — Curator's Random Tour Generator (driven by js/tour.js) -->
     <section class="section" id="tour">
       <div class="container">
         <h2>Curator's tour</h2>
@@ -205,13 +198,10 @@
           Start a Random Tour
         </button>
 
-        <!-- Hidden until the start button adds the .open class (js/tour.js) -->
         <div class="tour-panel" id="tour-panel">
           <p class="tour-counter" id="tour-counter" aria-live="polite">1 of 5</p>
 
           <article class="tour-artwork">
-            <!-- transparent 1x1 placeholder (no extra request); js/tour.js sets
-                 the real src + alt before the panel is revealed -->
             <img
               class="tour-image"
               id="tour-image"
@@ -235,7 +225,6 @@
     </section>
   </main>
 
-  <!-- Shared footer. Reused verbatim on every page. -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">

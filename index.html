@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
-  <!-- Shared header / navigation (Feature 1). Reused verbatim on every page. -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="index.html">Virtual<span>Museum</span></a>
@@ -56,7 +55,6 @@
   <div class="nav-overlay" aria-hidden="true"></div>
 
   <main>
-    <!-- Deliberate moment §4.4: Home hero with real featured masterpiece artwork -->
     <section class="hero hero--home" aria-label="Featured exhibition">
       <div class="container hero-inner">
         <div class="hero-content">
@@ -89,7 +87,6 @@
       </div>
     </section>
 
-    <!-- FEATURE 2 — Curator's Random Tour Generator (driven by js/tour.js) -->
     <section class="section" id="tour">
       <div class="container">
         <h2>Curator's tour</h2>
@@ -101,13 +98,10 @@
           Start a Random Tour
         </button>
 
-        <!-- Hidden until the start button adds the .open class (js/tour.js) -->
         <div class="tour-panel" id="tour-panel">
           <p class="tour-counter" id="tour-counter" aria-live="polite">1 of 5</p>
 
           <article class="tour-artwork">
-            <!-- transparent 1x1 placeholder (no extra request); js/tour.js sets
-                 the real src + alt before the panel is revealed -->
             <img
               class="tour-image"
               id="tour-image"
@@ -146,7 +140,6 @@
     </section>
   </main>
 
-  <!-- Shared footer. Reused verbatim on every page. -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
